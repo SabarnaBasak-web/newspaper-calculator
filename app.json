@@ -51,6 +51,12 @@
         {
           "configureAndroidBackup": true
         }
+      ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-3670795284684980~8011050323"
+        }
       ]
     ],
     "experiments": {

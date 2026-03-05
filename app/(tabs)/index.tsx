@@ -20,7 +20,6 @@ const HomeScreen = () => {
   const { selectedNewspaper } = useNewspaperStore();
 
   const showDailyNotification = !isToday(lastUpdated);
-
   const { remainingDays, currentCycleStart } = billingStartDate
     ? getBillingCycle(billingStartDate)
     : { remainingDays: null, currentCycleStart: null };
@@ -41,6 +40,8 @@ const HomeScreen = () => {
         {remainingDays === 0 && (
           <MonthlyNotificationCard startDate={currentCycleStart} />
         )}
+
+        {/* <AdBanner /> */}
       </View>
     </SafeAreaView>
   );

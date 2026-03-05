@@ -15,7 +15,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const HomeScreen = () => {
   const router = useRouter();
   const { getAllDetails } = usePaymentStore();
-  const { fetchSelectedNewspaper, fetchAllNewspapers } = useNewspaperStore();
+  const { fetchSelectedNewspaper } = useNewspaperStore();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,7 +28,6 @@ const HomeScreen = () => {
       await registerDevice(deviceId);
     } else {
       await fetchSelectedNewspaper();
-      await fetchAllNewspapers();
       await getAllDetails();
     }
 
