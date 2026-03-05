@@ -5,7 +5,7 @@ import {
   collection,
   doc,
   getDoc,
-  getDocs,
+  getDocsFromServer,
   query,
   updateDoc,
 } from "firebase/firestore";
@@ -29,7 +29,7 @@ const useNewspaperStore = create<NewspaperState>()((set) => ({
     })),
   fetchAllNewspapers: async () => {
     const q = query(collection(db, "newspapers"));
-    const querySnapshot = await getDocs(q);
+    const querySnapshot = await getDocsFromServer(q);
 
     const list: NewspaperListResponse[] = [];
     querySnapshot.forEach((snap) => {

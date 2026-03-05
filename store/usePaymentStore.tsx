@@ -11,8 +11,9 @@ import * as Crypto from "expo-crypto";
 import {
   arrayUnion,
   doc,
-  getDoc,
+  getDocFromServer,
   serverTimestamp,
+  Timestamp,
   updateDoc,
 } from "firebase/firestore";
 import { create } from "zustand";
@@ -47,7 +48,7 @@ const usePaymentStore = create<PaymentStoreState>()((set, get) => ({
       // Get current outstanding amount
       const previousAmount = get().outstandingAmount;
       const totalAmount = previousAmount + amount;
-
+      const localTime = Timestamp.now();
       await updateDoc(deviceRef, {
         outstandingAmount: totalAmount,
         currentMonth: currentMonth,
@@ -58,6 +59,7 @@ const usePaymentStore = create<PaymentStoreState>()((set, get) => ({
         outstandingAmount: totalAmount,
         currentMonth: currentMonth,
         loading: false,
+        lastUpdated: firestoreDate(localTime),
       });
     } catch (error) {
       console.error("Error updating outstanding amount:", error);
@@ -70,7 +72,7 @@ const usePaymentStore = create<PaymentStoreState>()((set, get) => ({
 
     try {
       set({ loading: true });
-      const querySnapshot = await getDoc(deviceRef);
+      const querySnapshot = await getDocFromServer(deviceRef);
       if (querySnapshot.exists()) {
         const data = querySnapshot.data() as PaymentDetailsResponse;
 

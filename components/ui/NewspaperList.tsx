@@ -1,3 +1,4 @@
+import useNewspaperStore from "@/store/useNewspaperStore";
 import { useRouter } from "expo-router";
 import { StyleSheet, View } from "react-native";
 import IconButton from "./IconButton";
@@ -5,8 +6,10 @@ import StyledText from "./StyledText";
 
 const NewspaperList = () => {
   const router = useRouter();
+  const { fetchAllNewspapers } = useNewspaperStore();
 
-  const onPressHandler = () => {
+  const onPressHandler = async () => {
+    await fetchAllNewspapers();
     router.push("/(tabs)/manageNewspaper");
   };
 
